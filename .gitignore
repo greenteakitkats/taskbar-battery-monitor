@@ -1,0 +1,17 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+
+# macOS
+.DS_Store
+
+# Local published artifacts
+publish/
+*.zip

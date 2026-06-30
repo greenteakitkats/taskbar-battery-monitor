@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <!-- Same windows TFM as the tray app so Windows.Gaming.Input is available -->
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ControllerBatteryProbe</AssemblyName>
+    <RootNamespace>ControllerBatteryProbe</RootNamespace>
+  </PropertyGroup>
+
+</Project>

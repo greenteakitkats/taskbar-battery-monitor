@@ -1,0 +1,54 @@
+BLUETOOTH BATTERY MONITOR — Windows tray app
+=============================================
+
+A tiny system-tray app that shows battery for your wireless controllers AND
+Bluetooth mice / keyboards / headsets, with a low-battery warning.
+
+
+ONE-TIME SETUP
+--------------
+1. Install the .NET 8 SDK (free, from Microsoft):
+   https://dotnet.microsoft.com/download/dotnet/8.0
+   (Pick the "SDK" installer for Windows x64. Reboot not required.)
+
+
+STEP 1 — Test your hardware first  (recommended)
+------------------------------------------------
+Open the "ControllerBatteryProbe" folder and double-click:
+      1 - RUN PROBE FIRST.bat
+
+A black window opens and lists, every 3 seconds:
+  - your controllers and their battery
+  - any Bluetooth devices that report a battery level
+
+This tells you which of your devices Windows can actually read a battery from.
+Take a screenshot or copy the text — it's useful if anything looks off.
+Press Ctrl+C (or close the window) when done.
+
+
+STEP 2 — Run the tray app
+--------------------------
+Open the "XboxControllerBattery" folder and double-click:
+      2 - START MONITOR.bat
+
+A battery icon appears in your system tray (bottom-right corner — you may need
+to click the little ^ arrow to reveal hidden icons).
+
+  - HOVER the icon  -> see every device's battery
+  - RIGHT-CLICK it  -> "Show on taskbar" lets you choose which device the icon
+                       displays; also low-battery toggle, warning threshold,
+                       and "Start with Windows".
+
+The first time it builds (a few seconds), then runs. Closing the black console
+window quits the app; or use Right-click -> Exit.
+
+
+NOTES
+-----
+- The very first run downloads/compiles, so give it a moment.
+- Windows SmartScreen may warn about the .bat the first time — it's just running
+  the .NET build for these local files. Click "More info" -> "Run anyway".
+- Controller battery is coarse (jumps in steps); some show "?" if they only
+  report status. That's a hardware limitation, not a bug.
+- If a Bluetooth device doesn't appear, Windows itself isn't exposing its
+  battery (check Settings > Bluetooth & devices) and no app can read it.
