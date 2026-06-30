@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # Self-contained single-file builds: the .NET runtime is bundled into the .exe,
+      # so end users don't need to install anything.
+      - name: Publish tray app
+        run: >
+          dotnet publish BluetoothBatteryMonitor/BluetoothBatteryMonitor.csproj
+          -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+          -o publish/app
+
+      - name: Publish probe
+        run: >
+          dotnet publish ControllerBatteryProbe/ControllerBatteryProbe.csproj
+          -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+          -o publish/probe
+
+      - name: Stage release assets
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item publish/app/BluetoothBatteryMonitor.exe dist/
+          Copy-Item publish/probe/ControllerBatteryProbe.exe dist/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.exe
+          generate_release_notes: true
+          body: |
+            ### Ready-to-run Windows build — no .NET install needed
+
+            - **BluetoothBatteryMonitor.exe** — the tray app. Double-click to run; a battery icon
+              appears in your system tray (click the `^` arrow if it's hidden). Right-click it for settings.
+            - **ControllerBatteryProbe.exe** — optional diagnostic that prints what battery data your
+              hardware exposes. Run this first if anything reads oddly.
+
+            > Windows SmartScreen may warn because the app is unsigned — click **More info → Run anyway**.
+            > Each .exe is large (~150 MB) because the .NET runtime is bundled in.

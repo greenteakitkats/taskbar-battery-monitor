@@ -21,7 +21,12 @@ single tray icon covers everything wireless.
 - 🎨 Dynamic, color-coded tray icon (green / amber / red, blue when charging).
 - ⚙️ Run-at-login toggle; settings persist to `%LocalAppData%`.
 
-## Quick start
+## Download (easiest)
+Grab the ready-to-run build from the [**Releases**](../../releases/latest) page — download
+`BluetoothBatteryMonitor.exe` and double-click it. No .NET install required (the runtime is bundled).
+Windows SmartScreen may warn (unsigned) — click *More info → Run anyway*.
+
+## Build from source
 **Prerequisite:** the free [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) (Windows x64).
 
 1. **Test your hardware first** — in `ControllerBatteryProbe/`, double-click
